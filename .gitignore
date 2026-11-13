@@ -1,0 +1,49 @@
+# RR Intelligence Hub – Git Ignore
+
+# Environment
+.env
+*.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Data – raw originals and processed files are NOT committed
+# (they are large and may contain proprietary data)
+data/raw/*.csv
+data/processed/*.csv
+
+# Trained models (large binary files – manage via DVC or cloud storage)
+models/**/*.joblib
+models/**/*.pkl
+
+# Reports (auto-generated)
+reports/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
