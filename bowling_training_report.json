@@ -1,0 +1,45 @@
+{
+  "model_type": "bowling",
+  "selected_algorithm": "RidgeRegressor",
+  "version": "1.0.0",
+  "trained_at": "2026-11-13T22:38:08.584799",
+  "training_samples": 7496,
+  "test_samples": 1875,
+  "features": [
+    "career_economy",
+    "career_sr",
+    "recent_5_wkts",
+    "recent_5_econ",
+    "innings",
+    "pressure_situation"
+  ],
+  "feature_importances": {},
+  "metrics": {
+    "mae": 0.8051,
+    "rmse": 1.0356,
+    "r2": 0.0116,
+    "cv_rmse": 1.0432
+  },
+  "model_comparison": {
+    "RandomForestRegressor": {
+      "cv_rmse": 1.0479,
+      "test_mae": 0.8127,
+      "test_rmse": 1.0376,
+      "test_r2": 0.0077
+    },
+    "GradientBoostingRegressor": {
+      "cv_rmse": 1.0504,
+      "test_mae": 0.8119,
+      "test_rmse": 1.0374,
+      "test_r2": 0.0081
+    },
+    "RidgeRegressor": {
+      "cv_rmse": 1.0432,
+      "test_mae": 0.8051,
+      "test_rmse": 1.0356,
+      "test_r2": 0.0116
+    }
+  },
+  "model_path": "C:\\Users\\santo\\OneDrive\\Desktop\\rr hacathon\\models\\bowling\\bowling_model.joblib",
+  "status": "TRAINED_AND_VERIFIED"
+}

@@ -1,0 +1,46 @@
+{
+  "model_type": "batting",
+  "selected_algorithm": "RidgeRegressor",
+  "version": "1.0.0",
+  "trained_at": "2026-11-13T22:37:54.229122",
+  "training_samples": 10191,
+  "test_samples": 2548,
+  "features": [
+    "career_avg",
+    "career_sr",
+    "recent_5_avg",
+    "recent_5_sr",
+    "batting_order",
+    "innings",
+    "pressure_situation"
+  ],
+  "feature_importances": {},
+  "metrics": {
+    "mae": 15.2852,
+    "rmse": 20.6026,
+    "r2": 0.1361,
+    "cv_rmse": 20.3765
+  },
+  "model_comparison": {
+    "RandomForestRegressor": {
+      "cv_rmse": 20.4731,
+      "test_mae": 15.3237,
+      "test_rmse": 20.663,
+      "test_r2": 0.131
+    },
+    "GradientBoostingRegressor": {
+      "cv_rmse": 20.5609,
+      "test_mae": 15.3314,
+      "test_rmse": 20.7208,
+      "test_r2": 0.1262
+    },
+    "RidgeRegressor": {
+      "cv_rmse": 20.3765,
+      "test_mae": 15.2852,
+      "test_rmse": 20.6026,
+      "test_r2": 0.1361
+    }
+  },
+  "model_path": "C:\\Users\\santo\\OneDrive\\Desktop\\rr hacathon\\models\\batting\\batting_model.joblib",
+  "status": "TRAINED_AND_VERIFIED"
+}
