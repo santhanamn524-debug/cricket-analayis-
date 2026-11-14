@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RR Intelligence Hub – Cricket Analytics Platform</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Plotly.js for interactive analytics charts -->
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body>
+
+  <!-- 1. LEFT VERTICAL SIDEBAR -->
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="brand-badge">RR</div>
+        <div class="brand-title">
+          <h1>RAJASTHAN ROYALS</h1>
+          <div class="tagline">INTELLIGENCE HUB</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-tab active" data-tab="executive">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <span>Command Centre</span>
+      </button>
+
+      <button class="nav-tab" data-tab="players">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <span>Player Database</span>
+      </button>
+
+      <button class="nav-tab" data-tab="selector">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+        <span>Smart Selector</span>
+      </button>
+
+      <button class="nav-tab" data-tab="batting">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2l4 4-14 14H4v-4L18 2z"></path><path d="M14.5 5.5l4 4"></path></svg>
+        <span>Batter Rankings</span>
+      </button>
+
+      <button class="nav-tab" data-tab="bowling">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M4.93 4.93l4.24 4.24"></path><path d="M14.83 9.17l4.24-4.24"></path><path d="M14.83 14.83l4.24 4.24"></path><path d="M9.17 14.83l-4.24 4.24"></path></svg>
+        <span>Bowler Rankings</span>
+      </button>
+
+      <button class="nav-tab" data-tab="comparison">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        <span>Player Comparison</span>
+      </button>
+
+      <button class="nav-tab" data-tab="pressure">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        <span>Pressure Analytics</span>
+      </button>
+
+      <button class="nav-tab" data-tab="training-monitor">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        <span>ML Training Monitor</span>
+      </button>
+
+      <button class="nav-tab" data-tab="model-eval">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+        <span>Model Evaluation</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="status-pill">
+        <div class="status-dot"></div>
+        <span id="sidebar-db-status">DB: Connected</span>
+      </div>
+      <div style="font-size: 10px; color: var(--gold); text-align: center;">RR Hub v1.0 • Rajasthan Royals</div>
+    </div>
+  </aside>
+
+  <!-- 2. MAIN CONTENT WRAPPER -->
+  <div class="app-main">
+    
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="top-bar-title" id="active-tab-title">Executive Command Centre</div>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <span class="pill pill-gold" id="topbar-model-badge">Models: Active</span>
+        <span class="pill pill-solid" id="topbar-db-badge">PostgreSQL / SQLite</span>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <!-- ======================================================== -->
+      <!-- MODULE 1: COMMAND CENTRE -->
+      <!-- ======================================================== -->
+      <section id="tab-executive" class="tab-pane active">
+        <div class="page-header">
+          <h2>Executive Command Centre</h2>
+          <p>Real-time tournament overview, high-level squad metrics, and cross-competition player intelligence.</p>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card gold-border">
+            <div class="kpi-label">Total Players Profiled</div>
+            <div class="kpi-value" id="kpi-players">1,084</div>
+            <div class="kpi-subtext">Cleaned & verified profiles</div>
+          </div>
+          <div class="kpi-card blue-border">
+            <div class="kpi-label">Total Matches Ingested</div>
+            <div class="kpi-value" id="kpi-matches">883</div>
+            <div class="kpi-subtext">Ball-by-ball delivery depth</div>
+          </div>
+          <div class="kpi-card green-border">
+            <div class="kpi-label">Tournaments / Competitions</div>
+            <div class="kpi-value" id="kpi-competitions">141</div>
+            <div class="kpi-subtext">IPL, T20 leagues, internationals</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Teams Catalogued</div>
+            <div class="kpi-value" id="kpi-teams">38</div>
+            <div class="kpi-subtext">Franchises & national squads</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
+          <div class="card" style="border-left: 4px solid var(--gold);">
+            <div class="kpi-label">Top Run Accumulator</div>
+            <div style="font-size: 20px; font-weight: 700;" id="highlight-batsman-name">Suryakumar Yadav</div>
+            <div style="color: var(--gold); font-size: 13px; margin-top: 4px;" id="highlight-batsman-runs">4,588 runs (Avg 38.88)</div>
+          </div>
+          <div class="card" style="border-left: 4px solid var(--royal-blue-light);">
+            <div class="kpi-label">Top Wicket Taker</div>
+            <div style="font-size: 20px; font-weight: 700;" id="highlight-bowler-name">Arshdeep Singh</div>
+            <div style="color: var(--royal-blue-light); font-size: 13px; margin-top: 4px;" id="highlight-bowler-wkts">194 wickets (Econ 8.67)</div>
+          </div>
+          <div class="card" style="border-left: 4px solid var(--success);">
+            <div class="kpi-label">Top Pressure Performer</div>
+            <div style="font-size: 20px; font-weight: 700;" id="highlight-clutch-name">Elite Clutch Leader</div>
+            <div style="color: var(--success); font-size: 13px; margin-top: 4px;" id="highlight-clutch-score">Clutch Rating: Elite</div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card">
+            <div class="card-title">Top 10 Overall Impact Leaderboard</div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Role</th>
+                    <th>Matches</th>
+                    <th>Runs</th>
+                    <th>Avg</th>
+                    <th>SR</th>
+                    <th>Wkts</th>
+                    <th>Econ</th>
+                    <th>Pressure</th>
+                    <th>Impact</th>
+                  </tr>
+                </thead>
+                <tbody id="exec-rankings-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Impact vs Pressure Distribution</div>
+            <div id="exec-impact-chart" class="chart-box"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- MODULE 2: PLAYER DATABASE -->
+      <!-- ======================================================== -->
+      <section id="tab-players" class="tab-pane">
+        <div class="page-header">
+          <h2>Player Intelligence Database</h2>
+          <p>Comprehensive player profiles, historical career metrics, radar attributes, and verified role evaluations.</p>
+        </div>
+
+        <div class="controls-bar">
+          <div class="input-group" style="flex: 2; min-width: 200px;">
+            <label>Search Player</label>
+            <input type="text" id="player-search-input" placeholder="Type player name (e.g. Samson, Buttler, Kohli)...">
+          </div>
+          <div class="input-group" style="flex: 1; min-width: 150px;">
+            <label>Tactical Role</label>
+            <select id="player-role-filter">
+              <option value="All">All Roles</option>
+              <option value="Top Order Anchor">Top Order Anchor</option>
+              <option value="Explosive Opener">Explosive Opener</option>
+              <option value="Middle Order Stabilizer">Middle Order Stabilizer</option>
+              <option value="Finisher">Finisher</option>
+              <option value="Powerplay Bowler">Powerplay Bowler</option>
+              <option value="Middle-Overs Enforcer">Middle-Overs Enforcer</option>
+              <option value="Death-Overs Specialist">Death-Overs Specialist</option>
+              <option value="All-Rounder">All-Rounder</option>
+            </select>
+          </div>
+          <div class="input-group" style="flex: 1; min-width: 150px;">
+            <label>Sort By</label>
+            <select id="player-sort-filter">
+              <option value="total_runs">Total Runs</option>
+              <option value="total_wickets">Total Wickets</option>
+              <option value="batting_avg">Batting Average</option>
+              <option value="strike_rate">Strike Rate</option>
+              <option value="pressure_score">Pressure Score</option>
+              <option value="consistency_score">Consistency Score</option>
+              <option value="overall_impact_score">Overall Impact Score</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <span id="player-count-label" style="font-size: 13px; color: var(--text-muted);">Loading players...</span>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <button id="btn-prev-page" class="btn btn-secondary" style="padding: 4px 12px;">&laquo; Prev</button>
+              <span id="player-page-info" style="font-size: 12px; color: var(--text-muted);">Page 1</span>
+              <button id="btn-next-page" class="btn btn-secondary" style="padding: 4px 12px;">Next &raquo;</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Player Name</th>
+                  <th>Role</th>
+                  <th>Matches</th>
+                  <th>Runs</th>
+                  <th>Avg</th>
+                  <th>SR</th>
+                  <th>Wickets</th>
+                  <th>Econ</th>
+                  <th>Consistency</th>
+                  <th>Pressure Score</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="players-table-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- MODULE 3: SMART SELECTOR -->
+      <!-- ======================================================== -->
+      <section id="tab-selector" class="tab-pane">
+        <div class="page-header">
+          <h2>RR Smart Selector – Tactical Recruitment Engine</h2>
+          <p>Data-driven player recommendation engine for Rajasthan Royals auction strategy and squad balancing.</p>
+        </div>
+
+        <div class="controls-bar">
+          <div class="input-group" style="flex: 2; min-width: 200px;">
+            <label>Target Squad Role</label>
+            <select id="selector-role-select">
+              <option value="Finisher">Finisher / Death-Overs Specialist</option>
+              <option value="Explosive Opener">Explosive Powerplay Opener</option>
+              <option value="Top Order Anchor">Top Order Anchor</option>
+              <option value="Middle Order Stabilizer">Middle Order Stabilizer</option>
+              <option value="Death-Overs Specialist">Death-Overs Yorker Specialist (Bowler)</option>
+              <option value="Powerplay Bowler">Powerplay Strike Bowler</option>
+              <option value="Middle-Overs Enforcer">Middle-Overs Spin Enforcer</option>
+              <option value="All-Rounder">Dual-Threat All-Rounder</option>
+              <option value="All">All Squad Roles</option>
+            </select>
+          </div>
+          <div class="input-group" style="flex: 1; min-width: 150px;">
+            <label>Min Matches Experience</label>
+            <select id="selector-min-matches">
+              <option value="5">5+ Matches</option>
+              <option value="10">10+ Matches</option>
+              <option value="20">20+ Matches</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="selector-cards-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px;"></div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- MODULE 4: BATTER RANKINGS -->
+      <!-- ======================================================== -->
+      <section id="tab-batting" class="tab-pane">
+        <div class="page-header">
+          <h2>Batting Intelligence & Official Rankings</h2>
+          <p>Comprehensive batting statistics, boundary frequencies, and efficiency quadrant analysis.</p>
+        </div>
+
+        <div class="controls-bar">
+          <div class="input-group" style="flex: 1; min-width: 200px;">
+            <label>Rank By</label>
+            <select id="batting-sort-select">
+              <option value="total_runs">Total Runs Scored</option>
+              <option value="batting_avg">Batting Average</option>
+              <option value="strike_rate">Strike Rate</option>
+              <option value="consistency_score">Consistency Score</option>
+              <option value="fifties">Fifty-Plus Scores</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 24px;">
+          <div class="card-title">Batting Efficiency Quadrant (Avg vs SR)</div>
+          <div id="batting-scatter-chart" class="chart-box"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Official Batting Rankings Table</div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Player</th>
+                  <th>Role</th>
+                  <th>Matches</th>
+                  <th>Innings</th>
+                  <th>Runs</th>
+                  <th>Avg</th>
+                  <th>SR</th>
+                  <th>High</th>
+                  <th>50s / 100s</th>
+                  <th>4s / 6s</th>
+                  <th>Consistency</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="batting-rankings-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- MODULE 5: BOWLER RANKINGS -->
+      <!-- ======================================================== -->
+      <section id="tab-bowling" class="tab-pane">
+        <div class="page-header">
+          <h2>Bowling Intelligence & Official Rankings</h2>
+          <p>Wicket-taking potency, economy control, and balls-per-wicket efficiency analysis.</p>
+        </div>
+
+        <div class="controls-bar">
+          <div class="input-group" style="flex: 1; min-width: 200px;">
+            <label>Rank By</label>
+            <select id="bowling-sort-select">
+              <option value="total_wickets">Total Wickets</option>
+              <option value="bowling_economy">Economy Rate</option>
+              <option value="bowling_avg">Bowling Average</option>
+              <option value="bowling_sr">Bowling Strike Rate</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 24px;">
+          <div class="card-title">Bowling Control Quadrant (Economy vs Strike Rate)</div>
+          <div id="bowling-scatter-chart" class="chart-box"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Official Bowling Rankings Table</div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Player</th>
+                  <th>Style</th>
+                  <th>Matches</th>
+                  <th>Overs</th>
+                  <th>Wickets</th>
+                  <th>Economy</th>
+                  <th>Avg</th>
+                  <th>SR</th>
+                  <th>4w / 5w</th>
+                  <th>Consistency</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="bowling-rankings-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- MODULE 6: PLAYER COMPARISON (CRITICAL REDESIGN) -->
+      <!-- ======================================================== -->
+      <section id="tab-comparison" class="tab-pane">
+        <div class="page-header">
+          <h2>Player Head-to-Head Comparison</h2>
+          <p>Multi-dimensional head-to-head benchmarking for tactical squad selection. Select players from the database to generate side-by-side metric cards, radar profiles, and AI-driven comparative insights.</p>
+        </div>
+
+        <!-- 1. Player Selection Section -->
+        <div class="card" style="margin-bottom: 24px; border-left: 4px solid var(--gold);">
+          <div class="card-title">
+            <span>Select Players for Comparison</span>
+            <span class="badge" id="compare-available-count">1,084 Players Available</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 16px;">
+            <div class="input-group">
+              <label>Player 1 (Primary)</label>
+              <select id="compare-select-1">
+                <option value="">Loading players...</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Player 2 (Challenger)</label>
+              <select id="compare-select-2">
+                <option value="">Loading players...</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Player 3 (Optional)</label>
+              <select id="compare-select-3">
+                <option value="">None (Compare 2 Players)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Target Tactical Role Filter</label>
+              <select id="compare-role-filter">
+                <option value="All">All Roles</option>
+                <option value="Top Order Anchor">Top Order Anchor</option>
+                <option value="Explosive Opener">Explosive Opener</option>
+                <option value="Middle Order Stabilizer">Middle Order Stabilizer</option>
+                <option value="Finisher">Finisher</option>
+                <option value="Powerplay Bowler">Powerplay Bowler</option>
+                <option value="Middle-Overs Enforcer">Middle-Overs Enforcer</option>
+                <option value="Death-Overs Specialist">Death-Overs Specialist</option>
+                <option value="All-Rounder">All-Rounder</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Format Filter</label>
+              <select id="compare-format-filter">
+                <option value="All">All T20 Competitions</option>
+                <option value="IPL">Indian Premier League</option>
+                <option value="T20I">T20 Internationals</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <button id="btn-execute-comparison" class="btn btn-gold" style="padding: 10px 24px; font-size: 14px;">
+              Compare Players
+            </button>
+            <span style="font-size: 12px; color: var(--text-muted);" id="compare-status-text">
+              Select 2 or 3 players above and click Compare Players to generate full analytics.
+            </span>
+          </div>
+        </div>
+
+        <!-- 2. Player Comparison Cards Container -->
+        <div id="comparison-cards-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-bottom: 24px;"></div>
+
+        <!-- 3. Comparison Insights Box -->
+        <div id="comparison-insights-box" class="card" style="margin-bottom: 24px; border-left: 4px solid var(--royal-blue-light); display: none;">
+          <div class="card-title">Tactical Comparative Insights & Verdict</div>
+          <div id="comparison-insights-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;"></div>
+        </div>
+
+        <!-- 4. Detailed Comparison Table -->
+        <div id="comparison-table-card" class="card" style="margin-bottom: 24px; display: none;">
+          <div class="card-title">Head-to-Head Statistical Benchmark Matrix</div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead id="comp-table-thead"></thead>
+              <tbody id="comp-table-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5. Comparison Plotly Charts -->
+        <div id="comparison-charts-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; display: none;">
+          <div class="card">
+            <div class="card-title">Batting Impact Comparison</div>
+            <div id="comp-chart-batting" class="chart-box"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Bowling Potency & Economy</div>
+            <div id="comp-chart-bowling" class="chart-box"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Multi-Player Radar Profile</div>
+            <div id="comp-chart-radar" class="chart-box"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Pressure Resilience & Clutch Comparison</div>
+            <div id="comp-chart-pressure" class="chart-box"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- MODULE 7: PRESSURE ANALYTICS & PERCENTAGE ANALYZER -->
+      <!-- ======================================================== -->
+      <section id="tab-pressure" class="tab-pane">
+        <div class="page-header">
+          <h2>Pressure Performance Percentage Analyzer</h2>
+          <p>Interactive clutch evaluation quantifying how individual batters, bowlers, and all-rounders execute under match pressure, expressed as standardized percentage indices with sample-size safeguards.</p>
+        </div>
+
+        <!-- 1. Player Selection & Filter Controls -->
+        <div class="card" style="margin-bottom: 24px; border-left: 4px solid var(--gold);">
+          <div class="card-title">
+            <span>Select Player for Individual Pressure Analysis</span>
+            <span class="badge" id="analyzer-available-count">1,084 Players Available</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 16px;">
+            <div class="input-group">
+              <label>Select Player</label>
+              <select id="analyzer-player-select">
+                <option value="">Loading players...</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Player Role Filter</label>
+              <select id="analyzer-role-filter">
+                <option value="All">All Roles</option>
+                <option value="Top Order Anchor">Top Order Anchor</option>
+                <option value="Explosive Opener">Explosive Opener</option>
+                <option value="Middle Order Stabilizer">Middle Order Stabilizer</option>
+                <option value="Finisher">Finisher</option>
+                <option value="Powerplay Bowler">Powerplay Bowler</option>
+                <option value="Middle-Overs Enforcer">Middle-Overs Enforcer</option>
+                <option value="Death-Overs Specialist">Death-Overs Specialist</option>
+                <option value="All-Rounder">All-Rounder</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Competition Format</label>
+              <select id="analyzer-format-filter">
+                <option value="All">All T20 Competitions</option>
+                <option value="IPL">Indian Premier League</option>
+                <option value="T20I">T20 Internationals</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Tournament Stage</label>
+              <select id="analyzer-comp-filter">
+                <option value="All">All Match Stages</option>
+                <option value="Knockouts">Knockouts / Playoffs Only</option>
+                <option value="Chases">2nd Innings Chases Only</option>
+                <option value="Death">Death Overs (16–20) Only</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; align-items: center;">
+            <button id="btn-run-pressure-analysis" class="btn btn-gold" style="padding: 10px 24px; font-size: 14px;">
+              Analyze Player Pressure
+            </button>
+            <span id="analyzer-status-msg" style="font-size: 12px; color: var(--text-muted);">
+              Select any player from the dropdown to calculate delivery-level pressure percentage metrics.
+            </span>
+          </div>
+        </div>
+
+        <!-- 2. Overall Pressure Percentage Banner -->
+        <div class="card" style="margin-bottom: 24px; background: linear-gradient(135deg, #0f172a, #162038); border: 1px solid var(--border-highlight);">
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: center;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                <span class="pill pill-normal" id="analyzer-player-role-badge">Top Order Anchor</span>
+                <span class="pill pill-gold" id="analyzer-sample-badge">Robust Sample</span>
+              </div>
+              <h3 id="analyzer-player-name" style="font-size: 26px; font-weight: 800; color: #fff;">Virat Kohli</h3>
+              <div id="analyzer-player-summary" style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">
+                Career: 54 Matches • 1,922 Pressure Runs • 1,239 Pressure Balls
+              </div>
+              <div id="analyzer-explanation-text" style="font-size: 13px; color: #cbd5e1; margin-top: 12px; line-height: 1.5; background: rgba(0,0,0,0.25); padding: 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--gold);">
+                Demonstrates elite clutch execution (98.5%) under challenging match conditions. Strongest capability: Batting Under Pressure.
+              </div>
+            </div>
+
+            <!-- Big Gauge Score Display -->
+            <div style="text-align: center; background: rgba(0,0,0,0.3); padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; font-weight: 600;">Overall Pressure Performance</div>
+              <div id="analyzer-score-pct" style="font-size: 48px; font-weight: 900; color: var(--gold); line-height: 1.1; margin: 6px 0;">98.5%</div>
+              <div id="analyzer-classification-badge" class="pill pill-elite" style="font-size: 12px; padding: 4px 12px;">ELITE (85–100%)</div>
+              <div style="font-size: 10px; color: var(--text-muted); margin-top: 6px;">Provisional normalized clutch index</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Metrics Breakdown: Batting, Bowling & All-Rounder -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+          <!-- Batting Pressure Metrics -->
+          <div class="card" style="border-left: 4px solid var(--royal-blue-light);">
+            <div class="card-title">
+              <span>Batting Under Pressure</span>
+              <span class="badge" id="card-bat-score-badge">98.5%</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 12px; margin-bottom: 12px;">
+              <div><span style="color:var(--text-muted);">Pressure Score:</span> <strong id="val-bat-score">98.5%</strong></div>
+              <div><span style="color:var(--text-muted);">Pressure Strike Rate:</span> <strong id="val-bat-sr">155.13</strong></div>
+              <div><span style="color:var(--text-muted);">Pressure Average:</span> <strong id="val-bat-avg">46.88</strong></div>
+              <div><span style="color:var(--text-muted);">Pressure Runs:</span> <strong id="val-bat-runs">1,922</strong></div>
+              <div><span style="color:var(--text-muted);">Pressure Balls:</span> <strong id="val-bat-balls">1,239</strong></div>
+              <div><span style="color:var(--text-muted);">Boundary Rate (%):</span> <strong id="val-bat-bnd">21.39%</strong></div>
+              <div><span style="color:var(--text-muted);">Pressure Matches:</span> <strong id="val-bat-matches">54</strong></div>
+              <div><span style="color:var(--text-muted);">Qualifying Matches:</span> <strong id="val-bat-qual">46 (≥5 balls)</strong></div>
+            </div>
+            <div id="bat-sample-warning-row" style="font-size: 11px; padding: 6px 10px; border-radius: 4px; background: rgba(16, 185, 129, 0.15); color: var(--success);">
+              ✓ Robust delivery sample available
+            </div>
+          </div>
+
+          <!-- Bowling Pressure Metrics -->
+          <div class="card" style="border-left: 4px solid var(--gold);">
+            <div class="card-title">
+              <span>Bowling Under Pressure</span>
+              <span class="badge" id="card-bowl-score-badge">50.0%</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 12px; margin-bottom: 12px;">
+              <div><span style="color:var(--text-muted);">Pressure Score:</span> <strong id="val-bowl-score">50.0%</strong></div>
+              <div><span style="color:var(--text-muted);">Pressure Economy:</span> <strong id="val-bowl-econ">6.00</strong></div>
+              <div><span style="color:var(--text-muted);">Pressure Wickets:</span> <strong id="val-bowl-wkts">0</strong></div>
+              <div><span style="color:var(--text-muted);">Pressure Balls Bowled:</span> <strong id="val-bowl-balls">6</strong></div>
+              <div><span style="color:var(--text-muted);">Dot Ball %:</span> <strong id="val-bowl-dots">16.67%</strong></div>
+              <div><span style="color:var(--text-muted);">Wicket Rate:</span> <strong id="val-bowl-wkt-rate">0.0 balls/wkt</strong></div>
+              <div><span style="color:var(--text-muted);">Pressure Matches:</span> <strong id="val-bowl-matches">1</strong></div>
+              <div><span style="color:var(--text-muted);">Qualifying Matches:</span> <strong id="val-bowl-qual">1 (≥6 balls)</strong></div>
+            </div>
+            <div id="bowl-sample-warning-row" style="font-size: 11px; padding: 6px 10px; border-radius: 4px; background: rgba(245, 158, 11, 0.15); color: var(--gold);">
+              ⚠️ Limited sample size (&lt; 24 legal pressure deliveries)
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Visualizations: Gauge & Situational Charts -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+          <div class="card">
+            <div class="card-title">Pressure Performance Gauge & Rating Dial</div>
+            <div id="analyzer-gauge-chart" class="chart-box"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Batting vs Bowling Pressure Balance</div>
+            <div id="analyzer-balance-chart" class="chart-box"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Recent Pressure Performance Trend (Match-by-Match)</div>
+            <div id="analyzer-trend-chart" class="chart-box"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Situational Contribution (Death Overs vs Chasing)</div>
+            <div id="analyzer-situation-chart" class="chart-box"></div>
+          </div>
+        </div>
+
+        <!-- 5. Macro Leaderboards -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+          <div class="card">
+            <div class="card-title">Top Batting Pressure Performers (Macro Overview)</div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Matches</th>
+                    <th>Runs</th>
+                    <th>SR</th>
+                    <th>Score</th>
+                    <th>Clutch</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="pressure-batting-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Top Bowling Pressure Performers (Macro Overview)</div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Matches</th>
+                    <th>Wickets</th>
+                    <th>Econ</th>
+                    <th>Score</th>
+                    <th>Clutch</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="pressure-bowling-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Expandable Advanced Methodology Accordion -->
+        <details class="accordion">
+          <summary>View Advanced Pressure Methodology & Weighting Calculations</summary>
+          <div style="padding-top: 12px; font-size: 13px; color: #cbd5e1; line-height: 1.6;">
+            <p><strong>Provisional Display Bands:</strong> 85–100% Elite • 70–84% Strong • 55–69% Competitive • 40–54% Developing • &lt;40% Needs Improvement. These bands represent descriptive historical indices, not future outcome probabilities.</p>
+            <p style="margin-top: 8px;"><strong>All-Rounder Combined Weighting:</strong> When a player qualifies as an All-Rounder (≥30 pressure balls faced and ≥24 pressure balls bowled), the combined score applies <code>55% Batting Pressure % + 45% Bowling Pressure %</code>. For specialist batters or bowlers, their primary discipline constitutes 100% of the rating.</p>
+            <p style="margin-top: 8px;"><strong>Sample-Size Safeguards:</strong> A sample-size warning flag is automatically triggered when a batter has faced fewer than 20 pressure deliveries, or when a bowler has bowled fewer than 24 pressure balls. Scores in low-sample ranges must be interpreted provisionally.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- MODULE 8: ML TRAINING MONITOR -->
+      <!-- ======================================================== -->
+      <section id="tab-training-monitor" class="tab-pane">
+        <div class="page-header">
+          <h2>Machine Learning Training Controller & Monitor</h2>
+          <p>Live training console allowing users to select algorithms, configure hyperparameters, execute training runs, and track evaluation progress.</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 24px;">
+          <div class="card-title">
+            <span>Configure & Initiate Training Run</span>
+            <span id="training-status-badge" class="pill pill-solid">READY</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 16px;">
+            <div class="input-group">
+              <label>Model Pipeline</label>
+              <select id="train-model-type">
+                <option value="batting">Batting Runs Predictor</option>
+                <option value="bowling">Bowling Wickets Predictor</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>Algorithm</label>
+              <select id="train-algorithm">
+                <option value="RandomForestRegressor">Random Forest Regressor</option>
+                <option value="GradientBoostingRegressor">Gradient Boosting Regressor</option>
+                <option value="Ridge">Ridge Regressor</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>Estimators (Trees)</label>
+              <input type="number" id="train-n-estimators" value="100" min="20" max="300" step="10">
+            </div>
+            <div class="input-group">
+              <label>Max Depth</label>
+              <input type="number" id="train-max-depth" value="6" min="2" max="20">
+            </div>
+            <div class="input-group">
+              <label>Learning Rate (GBR)</label>
+              <input type="number" id="train-learning-rate" value="0.08" min="0.01" max="0.5" step="0.01">
+            </div>
+            <div class="input-group">
+              <label>Test Split Ratio</label>
+              <input type="number" id="train-test-size" value="0.2" min="0.1" max="0.4" step="0.05">
+            </div>
+            <div class="input-group">
+              <label>Cross-Validation Folds</label>
+              <input type="number" id="train-cv-folds" value="5" min="3" max="10">
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; align-items: center; margin-top: 10px;">
+            <button id="btn-start-training" class="btn btn-gold">Start Training Execution</button>
+            <div style="flex: 1;">
+              <div class="progress-bar-container">
+                <div id="training-progress-fill" class="progress-bar-fill"></div>
+              </div>
+              <div id="training-status-text" style="font-size: 12px; color: var(--text-muted);">Pipeline ready. Click Start Training to fit models with your parameters.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Training Execution History Log</div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Model</th>
+                  <th>Algorithm</th>
+                  <th>Hyperparameters</th>
+                  <th>Test MAE</th>
+                  <th>Test RMSE</th>
+                  <th>R² Score</th>
+                </tr>
+              </thead>
+              <tbody id="training-history-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- MODULE 9: MODEL EVALUATION -->
+      <!-- ======================================================== -->
+      <section id="tab-model-eval" class="tab-pane">
+        <div class="page-header">
+          <h2>Model Evaluation & Interactive Sandbox</h2>
+          <p>Verified Scikit-learn test metrics, algorithm benchmark comparisons, and real-time prediction sandbox.</p>
+        </div>
+
+        <div id="models-status-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-bottom: 24px;"></div>
+
+        <div class="dashboard-grid">
+          <div class="card">
+            <div class="card-title">Algorithm Benchmark Comparison</div>
+            <div id="model-comparison-chart" class="chart-box"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Live Batting Prediction Sandbox</div>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Simulate match conditions to predict expected batter runs.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
+              <div class="input-group">
+                <label>Career Avg</label>
+                <input type="number" id="pred-bat-avg" value="38.5" step="0.5">
+              </div>
+              <div class="input-group">
+                <label>Career SR</label>
+                <input type="number" id="pred-bat-sr" value="145.0" step="1.0">
+              </div>
+              <div class="input-group">
+                <label>Recent 5 Avg</label>
+                <input type="number" id="pred-bat-rec-avg" value="42.0" step="0.5">
+              </div>
+              <div class="input-group">
+                <label>Recent 5 SR</label>
+                <input type="number" id="pred-bat-rec-sr" value="152.0" step="1.0">
+              </div>
+              <div class="input-group">
+                <label>Batting Order</label>
+                <input type="number" id="pred-bat-order" value="3" min="1" max="11">
+              </div>
+              <div class="input-group">
+                <label>Innings</label>
+                <select id="pred-bat-inn">
+                  <option value="1">1st Innings (Setting Target)</option>
+                  <option value="2">2nd Innings (Chasing)</option>
+                </select>
+              </div>
+              <div class="input-group" style="grid-column: span 2;">
+                <label>Pressure Level (1.0 = Normal, 3.0 = High, 4.5 = Extreme)</label>
+                <input type="number" id="pred-bat-pressure" value="2.5" min="0.5" max="5.0" step="0.5">
+              </div>
+            </div>
+
+            <button id="btn-run-bat-pred" class="btn btn-gold" style="width: 100%; margin-bottom: 14px;">Execute Prediction</button>
+            <div id="pred-bat-result"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- App Footer -->
+    <footer class="app-footer">
+      Rajasthan Royals Intelligence Hub • Engineered with FastAPI, PostgreSQL / SQLite, Scikit-learn & Plotly.js • Build. Analyse. Select. Win.
+    </footer>
+
+  </div>
+
+  <!-- Player Profile Modal -->
+  <div id="player-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button class="modal-close">&times;</button>
+      <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 14px; margin-bottom: 18px;">
+        <h2 id="modal-player-name" style="font-size: 24px; font-weight: 700;">Player Name</h2>
+        <div id="modal-player-role" style="font-size: 13px; color: var(--gold); margin-top: 4px;">Role Profile</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+        <div class="card" style="padding: 14px;">
+          <div style="font-weight: 600; color: var(--royal-blue-light); font-size: 13px; margin-bottom: 10px;">BATTING ATTRIBUTES</div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-size: 12px;">
+            <div><span style="color:var(--text-muted);">Runs:</span> <strong id="modal-runs">-</strong></div>
+            <div><span style="color:var(--text-muted);">Avg:</span> <strong id="modal-avg">-</strong></div>
+            <div><span style="color:var(--text-muted);">SR:</span> <strong id="modal-sr">-</strong></div>
+            <div><span style="color:var(--text-muted);">Highest:</span> <strong id="modal-hi">-</strong></div>
+            <div><span style="color:var(--text-muted);">50/100:</span> <strong id="modal-fifties">-</strong></div>
+            <div><span style="color:var(--text-muted);">Consistency:</span> <strong id="modal-consistency">-</strong></div>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 14px;">
+          <div style="font-weight: 600; color: var(--gold); font-size: 13px; margin-bottom: 10px;">BOWLING ATTRIBUTES</div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-size: 12px;">
+            <div><span style="color:var(--text-muted);">Wickets:</span> <strong id="modal-wkts">-</strong></div>
+            <div><span style="color:var(--text-muted);">Economy:</span> <strong id="modal-econ">-</strong></div>
+            <div><span style="color:var(--text-muted);">Avg:</span> <strong id="modal-bw-avg">-</strong></div>
+            <div><span style="color:var(--text-muted);">Overs:</span> <strong id="modal-overs">-</strong></div>
+            <div><span style="color:var(--text-muted);">Pressure:</span> <strong id="modal-pressure">-</strong></div>
+            <div><span style="color:var(--text-muted);">Impact:</span> <strong id="modal-impact">-</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="card" style="padding: 14px;">
+          <div style="font-weight: 600; font-size: 13px; margin-bottom: 10px;">IDENTIFIED PLAYER STRENGTHS</div>
+          <ul id="modal-strengths" style="padding-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.6;"></ul>
+        </div>
+        <div class="card" style="padding: 14px;">
+          <div style="font-weight: 600; font-size: 13px; margin-bottom: 6px;">RADAR ATTRIBUTE DISTRIBUTION</div>
+          <div id="modal-radar-chart" style="height: 250px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generic Evidence Modal -->
+  <div id="generic-modal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 650px;">
+      <button class="modal-close">&times;</button>
+      <div id="generic-modal-body"></div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

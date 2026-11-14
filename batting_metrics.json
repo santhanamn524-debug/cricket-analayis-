@@ -1,0 +1,41 @@
+{
+  "model_type": "batting",
+  "selected_algorithm": "RandomForestRegressor",
+  "version": "1.1.0",
+  "trained_at": "2026-11-13T23:41:00.563092",
+  "training_samples": 10191,
+  "test_samples": 2548,
+  "features": [
+    "career_avg",
+    "career_sr",
+    "recent_5_avg",
+    "recent_5_sr",
+    "batting_order",
+    "innings",
+    "pressure_situation"
+  ],
+  "feature_importances": {
+    "career_avg": 0.18,
+    "career_sr": 0.0612,
+    "recent_5_avg": 0.0494,
+    "recent_5_sr": 0.0646,
+    "batting_order": 0.6322,
+    "innings": 0.0027,
+    "pressure_situation": 0.0099
+  },
+  "hyperparameters": {
+    "n_estimators": 100,
+    "max_depth": 6,
+    "learning_rate": 0.08,
+    "test_size": 0.2,
+    "cv_folds": 5
+  },
+  "metrics": {
+    "mae": 15.2875,
+    "rmse": 20.6408,
+    "r2": 0.1329,
+    "cv_rmse": 20.4055
+  },
+  "model_path": "C:\\Users\\santo\\OneDrive\\Desktop\\rr hacathon\\models\\batting\\batting_model.joblib",
+  "status": "TRAINED_AND_VERIFIED"
+}

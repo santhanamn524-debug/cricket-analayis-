@@ -1,0 +1,38 @@
+[
+  {
+    "id": "bowling-1794597668",
+    "timestamp": "2026-11-14 00:51:08",
+    "model_type": "bowling",
+    "algorithm": "Ridge",
+    "hyperparameters": {
+      "n_estimators": 100,
+      "max_depth": 6,
+      "learning_rate": 0.08,
+      "test_size": 0.2,
+      "cv_folds": 5
+    },
+    "mae": 0.8051,
+    "rmse": 1.0356,
+    "r2": 0.0116,
+    "cv_rmse": 1.0432,
+    "samples": 9371
+  },
+  {
+    "id": "batting-1794593460",
+    "timestamp": "2026-11-13 23:41:00",
+    "model_type": "batting",
+    "algorithm": "RandomForestRegressor",
+    "hyperparameters": {
+      "n_estimators": 100,
+      "max_depth": 6,
+      "learning_rate": 0.08,
+      "test_size": 0.2,
+      "cv_folds": 5
+    },
+    "mae": 15.2875,
+    "rmse": 20.6408,
+    "r2": 0.1329,
+    "cv_rmse": 20.4055,
+    "samples": 12739
+  }
+]
