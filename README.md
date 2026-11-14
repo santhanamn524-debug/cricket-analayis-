@@ -34,45 +34,8 @@ The single-page web dashboard provides 10 integrated modules:
 
 ---
 
-## 3. Quick Start (Local Execution on Windows)
-
-### Prerequisites
-- Python 3.10+ (Verified on Python 3.14)
-- Packages installed:
-  ```powershell
-  pip install fastapi uvicorn sqlalchemy psycopg2-binary scikit-learn pandas numpy joblib pydantic httpx
-  ```
-
-### Option A — One-Click Launch (All Services)
-Double-click `run_all.bat` or execute in PowerShell:
-```powershell
-.\run_all.ps1
-```
-This starts:
-- **Backend API**: [http://localhost:8000](http://localhost:8000)
-- **Frontend Dashboard**: [http://localhost:5500](http://localhost:5500)
-- **Swagger Documentation**: [http://localhost:8000/docs](http://localhost:8000/docs)
-
----
-
-### Option B — Run Separately
-
-#### 1. Start Backend API (Port 8000)
-```powershell
-python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
-```
-*Note: You can also directly view the dashboard at [http://localhost:8000/](http://localhost:8000/).*
-
-#### 2. Start Frontend Server (Port 5500)
-In a separate terminal:
-```powershell
-python -m http.server 5500 --directory frontend
-```
-Open [http://localhost:5500](http://localhost:5500) in your web browser.
-
----
-
-## 4. API Endpoints Reference
+#
+## 3.. API Endpoints Reference
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -98,7 +61,7 @@ Open [http://localhost:5500](http://localhost:5500) in your web browser.
 
 ---
 
-## 5. Machine Learning Models Summary
+## 4. Machine Learning Models Summary
 
 - **Batting Predictor**:
   - Selected Algorithm: `RidgeRegressor` (with options for `RandomForestRegressor` and `GradientBoostingRegressor`)
@@ -111,10 +74,12 @@ Open [http://localhost:5500](http://localhost:5500) in your web browser.
 
 ---
 
-## 6. Verification & Quality Assurance
+## 5. Verification & Quality Assurance
 
 To run the verification suite:
 ```powershell
 python tests/quick_verification.py
 ```
-This executes automated assertions verifying database tables, data counts, model prediction inferences, selector ranking algorithms, and frontend assets in under 3 seconds.
+This executes automated assertions verifying database tables, data counts, model prediction inferences, selector ranking algorithms, and frontend assets in under 3 secondsYour site is live at https://santhanamn524-debug.github.io/cricket-analayis-/
+Last deployed by @santhanamn524-debug santhanamn524-debug 1 minute ago.
+
