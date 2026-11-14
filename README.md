@@ -81,6 +81,7 @@ To run the verification suite:
 python tests/quick_verification.py
 
 
+6.SITE IS LIVE AT
 Your site is live at https://santhanamn524-debug.github.io/cricket-analayis-/
 Last deployed by @santhanamn524-debug santhanamn524-debug 1 minute ago
 
