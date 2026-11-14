@@ -953,7 +953,7 @@ async function loadPressurePlayerAnalyzer(playerId) {
   } catch (err) {
     console.error("Pressure Analyzer Error:", err);
     if (statusMsg) {
-      statusMsg.textContent = "Error running pressure analyzer: " + err.message;
+      statusMsg.textContent = err.message;
       statusMsg.style.color = "var(--danger)";
     }
   }
@@ -1072,7 +1072,7 @@ async function loadMacroPressureLeaderboards() {
         <td>${p.matches_played}</td>
         <td>${p.total_runs}</td>
         <td>${p.strike_rate}</td>
-        <td><strong style="color:var(--gold); font-size:14px;">${p.pressure_score}%</strong></td>
+        <td><strong style="color:var(--gold); font-size:14px;">${p.pressure_score}</strong></td>
         <td><span class="pill pill-${p.clutch_rating.toLowerCase()}">${p.clutch_rating}</span></td>
         <td>
           <button class="btn btn-secondary" style="padding: 3px 8px; font-size: 11px;" onclick="loadPressurePlayerAnalyzer(${p.player_id})">
@@ -1093,7 +1093,7 @@ async function loadMacroPressureLeaderboards() {
         <td>${p.matches_played}</td>
         <td>${p.total_wickets}</td>
         <td>${p.bowling_economy}</td>
-        <td><strong style="color:var(--gold); font-size:14px;">${p.pressure_score}%</strong></td>
+        <td><strong style="color:var(--gold); font-size:14px;">${p.pressure_score}</strong></td>
         <td><span class="pill pill-${p.clutch_rating.toLowerCase()}">${p.clutch_rating}</span></td>
         <td>
           <button class="btn btn-secondary" style="padding: 3px 8px; font-size: 11px;" onclick="loadPressurePlayerAnalyzer(${p.player_id})">
@@ -1116,6 +1116,12 @@ let trainingPollInterval = null;
 async function loadTrainingMonitor() {
   loadTrainingHistory();
   checkTrainingStatus();
+  const trainButton = document.getElementById("btn-start-training");
+  if (trainButton) {
+    trainButton.disabled = true;
+    trainButton.textContent = "Backend Required for Training";
+    trainButton.title = "GitHub Pages is static hosting; model training requires the Python backend.";
+  }
 }
 
 async function triggerCustomTraining() {
@@ -1244,7 +1250,7 @@ async function loadModelEvaluation() {
           <div><div style="font-size:11px; color:var(--text-muted);">R² SCORE</div><strong style="font-size:18px; color:var(--royal-blue-light);">${m.r2}</strong></div>
         </div>
         <div style="font-size: 11px; color: var(--text-muted);">
-          Input Features: ${m.features.join(", ")}
+          Saved model metrics only • Live inference requires Python backend
         </div>
       `;
       container.appendChild(card);
@@ -1313,7 +1319,7 @@ async function runBattingPrediction() {
       </div>
     `;
   } catch (err) {
-    alert("Prediction error: " + err.message);
+    alert("Prediction unavailable in static mode: " + err.message);
   }
 }
 
@@ -1327,7 +1333,7 @@ async function checkSystemHealth() {
   } catch (err) {
     const sidebarDb = document.getElementById("sidebar-db-status");
     if (sidebarDb) {
-      sidebarDb.textContent = "API Offline";
+      sidebarDb.textContent = "Static data unavailable";
       sidebarDb.style.color = "var(--danger)";
     }
   }
