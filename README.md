@@ -79,7 +79,8 @@ The single-page web dashboard provides 10 integrated modules:
 To run the verification suite:
 ```powershell
 python tests/quick_verification.py
-```
-This executes automated assertions verifying database tables, data counts, model prediction inferences, selector ranking algorithms, and frontend assets in under 3 secondsYour site is live at https://santhanamn524-debug.github.io/cricket-analayis-/
-Last deployed by @santhanamn524-debug santhanamn524-debug 1 minute ago.
+
+
+Your site is live at https://santhanamn524-debug.github.io/cricket-analayis-/
+Last deployed by @santhanamn524-debug santhanamn524-debug 1 minute ago
 
